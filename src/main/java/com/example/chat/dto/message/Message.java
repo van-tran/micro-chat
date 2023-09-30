@@ -1,4 +1,4 @@
-package com.example.chat.dto;
+package com.example.chat.dto.message;
 
 import java.util.List;
 import lombok.Data;

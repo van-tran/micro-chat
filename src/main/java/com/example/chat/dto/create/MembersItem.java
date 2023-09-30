@@ -1,5 +1,6 @@
-package com.example.chat.dto;
+package com.example.chat.dto.create;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data

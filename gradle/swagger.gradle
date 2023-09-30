@@ -1,0 +1,36 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.openapitools:openapi-generator-gradle-plugin:${openapiPluginVersion}"
+    }
+}
+
+apply plugin: 'org.openapi.generator'
+
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "$rootDir/src/main/resources/swagger/api.yml".toString()
+    outputDir = "$buildDir/openapi".toString()
+    apiPackage = "com.example.converstaion.api"
+    modelPackage = "com.example.converstaion.service.api.dto"
+    apiFilesConstrainedTo = [""]
+    modelFilesConstrainedTo = [""]
+    supportingFilesConstrainedTo = ["ApiUtil.java"]
+    configOptions = [delegatePattern: "true", title: "chat sample", useTags: "true", identifierNamingConvention: "snake_case"]
+    validateSpec = true
+    importMappings = [Problem:"org.zalando.problem.Problem"]
+    typeMappings = ["general_result": "com.example.chat.dto.Result"]
+}
+
+compileJava.dependsOn('openApiGenerate')
+
+sourceSets {
+    main {
+        java {
+            srcDir file("${project.buildDir.path}/openapi/src/main/java")
+        }
+    }
+}

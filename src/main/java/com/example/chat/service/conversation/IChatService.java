@@ -1,6 +1,7 @@
 package com.example.chat.service.conversation;
 
-public interface IChatService {
+import com.example.chat.dto.create.ChatCreatingResponse;
 
+public interface IChatService {
 
 }

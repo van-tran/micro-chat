@@ -1,1 +1,14 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.spring.io/milestone' }
+        gradlePluginPortal()
+    }
+    plugins {
+        id 'org.springframework.boot' version "${springBootVersion}"
+        id "org.openapi.generator" version "${openapiPluginVersion}"
+
+    }
+}
+
 rootProject.name = 'conversation'

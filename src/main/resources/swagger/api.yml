@@ -1,0 +1,82 @@
+openapi: 3.0.1
+info:
+  title: Chat
+  description: This is the API documentation for Chat server.
+  version: 1.0.0
+security:
+  - userApiKey: []
+paths:
+  /api/v1/conversations:
+    post:
+      tags:
+        - Conversations
+      summary: Create New Conversation
+      description: "Creating a conversation "
+      operationId: newConversation
+      requestBody:
+        content:
+          application/json; charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/Conversation'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Result'
+        403:
+          description: Access denied
+          content: { }
+      security:
+        - userApiKey: [ ]
+        - agentBotApiKey: [ ]
+      x-codegen-request-body-name: data
+components:
+  schemas:
+    Result:
+      title: general result
+      type: object
+      properties:
+        data:
+          type: object
+        totalRecords:
+          type: integer
+        errorCode:
+          type: integer
+          default: 0
+        statusCode:
+          type: integer
+        errorMessage:
+          type: string
+    Conversation:
+      required:
+        - id
+        - type
+      type: object
+      properties:
+        name:
+          type: string
+          description: "User specify group name"
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+            - GROUP
+            - INDIVIDUAL
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participant'
+    Participant:
+      required:
+        - phoneNumber
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: "Id system user"
+        name:
+          type: string
